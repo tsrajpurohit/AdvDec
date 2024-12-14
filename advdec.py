@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 # Fetch credentials and Sheet ID from environment variables
 credentials_json = os.getenv('GOOGLE_SHEETS_CREDENTIALS')  # JSON string
-SHEET_ID = os.getenv('GOOGLE_SHEET_ID')  # Sheet ID from environment
+SHEET_ID = "1IUChF0UFKMqVLxTI69lXBi-g48f-oTYqI1K9miipKgY"  # Sheet ID from environment
 
 if not credentials_json:
     raise ValueError("GOOGLE_SHEETS_CREDENTIALS environment variable is not set.")
