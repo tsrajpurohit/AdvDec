@@ -11,14 +11,14 @@ ADANIGREEN,Energy
 ADANIPORTS,Construction & Infrastructure
 ALKEM,Pharmaceuticals
 AMBUJACEM,Construction & Infrastructure
-ANGELONE,Others
+ANGELONE,Financial Services
 APLAPOLLO,Construction & Infrastructure
 APOLLOHOSP,Healthcare
 APOLLOTYRE,Automotive
 ASHOKLEY,Automotive
-ASIANPAINT,Others
+ASIANPAINT,FMCG
 ASTRAL,Construction & Infrastructure
-ATGL,Others
+ATGL,Energy
 ATUL,Chemicals & Fertilizers
 AUBANK,Financial Services
 AUROPHARMA,Pharmaceuticals
@@ -40,7 +40,7 @@ BIOCON,Pharmaceuticals
 BOSCHLTD,Automotive
 BPCL,Energy
 BRITANNIA,Consumer Goods
-BSE,Others
+BSE,Financial Services
 BSOFT,IT
 CAMS,Financial Services
 CANBK,Financial Services
@@ -95,7 +95,7 @@ HINDALCO,Metals & Mining
 HINDCOPPER,Metals & Mining
 HINDPETRO,Energy
 HINDUNILVR,Consumer Goods
-HUDCO,Construction & Infrastructure
+HUDCO,Financial Services
 ICICIBANK,Financial Services
 ICICIGI,Financial Services
 ICICIPRULI,Financial Services
@@ -143,7 +143,7 @@ MANAPPURAM,Financial Services
 MARICO,Consumer Goods
 MARUTI,Automotive
 MAXHEALTH,Healthcare
-MCX,Others
+MCX,Financial Services
 METROPOLIS,Healthcare
 MFSL,Financial Services
 MGL,Energy
@@ -157,7 +157,6 @@ NAVINFLUOR,Chemicals & Fertilizers
 NCC,Construction & Infrastructure
 NESTLEIND,Consumer Goods
 NHPC,Energy
-NIFTY,Others
 NMDC,Metals & Mining
 NTPC,Energy
 NYKAA,IT
