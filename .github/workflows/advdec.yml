@@ -3,7 +3,7 @@ name: Run AdvDec Script
 on:
   schedule:
     # Run every day at 10 PM IST, Monday to Friday
-   - cron: '0 3 * * 0'  # This cron schedule runs every 5 minutes Monday to Friday, from 9:15 AM to 3:30 PM IST
+   - cron: '0 3 * * 0'  # Runs at 03:00, only on Sunday
   workflow_dispatch:  # Allows manual trigger of the workflow
 
 jobs:
