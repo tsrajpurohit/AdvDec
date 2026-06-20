@@ -121,31 +121,19 @@ def save_data_to_google_sheets_and_csv():
     # Fetch data
     # Fetch data
     data = nse_get_advances_declines("index")
+
+    logging.info(f"Adv/Dec response: {data}")
     
-   logging.info(
-        json.dumps(data, indent=2, default=str)[:5000]
-    )
-    
-    if data is None:
-        logging.warning("Adv/Dec returned None")
+    if not data:
+        logging.warning("No Adv/Dec data received")
         return
     
     if isinstance(data, dict):
-    
-        if "meta" in data:
-            del data["meta"]
-    
-        if "data" in data:
-            data = data["data"]
-    
-    if not data:
-        logging.warning("Adv/Dec returned empty data")
-        return
-    
-    try:
+        df = pd.json_normalize(data)
+    elif isinstance(data, list):
         df = pd.DataFrame(data)
-    except Exception as e:
-        logging.error(f"Could not create DataFrame: {e}")
+    else:
+        logging.warning(f"Unsupported type: {type(data)}")
         return
 
     # Clean invalid values
