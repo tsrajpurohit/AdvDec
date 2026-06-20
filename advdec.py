@@ -119,22 +119,32 @@ def save_data_to_google_sheets_and_csv():
         save_data_to_csv(most_active_df, "Most_Active")
 
     # Fetch data
+    # Fetch data
     data = nse_get_advances_declines("index")
-
+    
     logging.info(f"Adv/Dec type: {type(data)}")
-    logging.info(f"Adv/Dec data: {str(data)[:1000]}")
-
-    # Remove 'meta' portion if it exists
-    if isinstance(data, dict) and "meta" in data:
-        del data["meta"]
-
-    # Convert data to DataFrame
+    
+    if data is None:
+        logging.warning("Adv/Dec returned None")
+        return
+    
     if isinstance(data, dict):
-        data = data.get("data", [])
-    if data and isinstance(data[0], dict):
+    
+        if "meta" in data:
+            del data["meta"]
+    
+        if "data" in data:
+            data = data["data"]
+    
+    if not data:
+        logging.warning("Adv/Dec returned empty data")
+        return
+    
+    try:
         df = pd.DataFrame(data)
-    else:
-        raise ValueError("Data is not in a suitable format for DataFrame conversion")
+    except Exception as e:
+        logging.error(f"Could not create DataFrame: {e}")
+        return
 
     # Clean invalid values
     df = df.applymap(lambda x: "" if isinstance(x, (dict, list)) or pd.isnull(x) else x)
