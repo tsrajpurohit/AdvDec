@@ -122,7 +122,9 @@ def save_data_to_google_sheets_and_csv():
     # Fetch data
     data = nse_get_advances_declines("index")
     
-    logging.info(f"Adv/Dec type: {type(data)}")
+   logging.info(
+        json.dumps(data, indent=2, default=str)[:5000]
+    )
     
     if data is None:
         logging.warning("Adv/Dec returned None")
