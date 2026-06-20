@@ -9,7 +9,7 @@ from google.oauth2.service_account import Credentials
 # CONFIG
 # ======================
 BASE_URL = "https://www.nseindia.com"
-API_URL = "https://www.nseindia.com/api/live-analysis-oi-spurts-contracts"
+API_URL = "https://www.nseindia.com/api/live-analysis-oi-spurts-underlyings"
 
 SHEET_ID = "1IUChF0UFKMqVLxTI69lXBi-g48f-oTYqI1K9miipKgY"
 TAB_NAME = "OI_Spurts_Contracts"
