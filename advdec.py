@@ -121,6 +121,9 @@ def save_data_to_google_sheets_and_csv():
     # Fetch data
     data = nse_get_advances_declines("index")
 
+    logging.info(f"Adv/Dec type: {type(data)}")
+    logging.info(f"Adv/Dec data: {str(data)[:1000]}")
+
     # Remove 'meta' portion if it exists
     if isinstance(data, dict) and "meta" in data:
         del data["meta"]
