@@ -5,6 +5,7 @@ import io
 import os
 import json
 import gspread
+import requests
 from google.oauth2.service_account import Credentials
 
 # ==========================
@@ -50,25 +51,22 @@ HEADERS = {
 # ==========================
 # DOWNLOAD CSV
 # ==========================
-async def fetch_data():
-    async with aiohttp.ClientSession() as session:
-        async with session.get(
-            CSV_URL,
-            headers=HEADERS,
-            timeout=aiohttp.ClientTimeout(total=30)
-        ) as response:
+def fetch_data():
+    response = requests.get(
+        CSV_URL,
+        headers=HEADERS,
+        timeout=30
+    )
 
-            response.raise_for_status()
+    response.raise_for_status()
 
-            content = await response.read()
+    df = pd.read_csv(
+        io.StringIO(response.text)
+    )
 
-            df = pd.read_csv(
-                io.StringIO(content.decode("utf-8"))
-            )
+    print(f"Downloaded {len(df)} rows")
 
-            print(f"✅ Downloaded {len(df)} rows")
-
-            return df
+    return df
 
 # ==========================
 # GOOGLE SHEETS UPLOAD
@@ -120,9 +118,9 @@ def save_to_csv(df):
 # ==========================
 # MAIN
 # ==========================
-async def main():
+def main():
     try:
-        df = await fetch_data()
+        df = fetch_data()
 
         upload_to_google_sheets(df)
 
@@ -134,4 +132,4 @@ async def main():
         print(f"❌ Process failed: {e}")
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
