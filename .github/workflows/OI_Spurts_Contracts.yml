@@ -1,0 +1,64 @@
+name: Run OI_Spurts_Contracts Script
+
+on:
+  schedule:
+    # Runs every Sunday at 03:00 UTC (10:30 AM IST Sunday)
+    - cron: "0 3 * * 0"
+
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ======================
+      # 1. Checkout repo
+      # ======================
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ======================
+      # 2. Setup Python
+      # ======================
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+
+      # ======================
+      # 3. Install dependencies
+      # ======================
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # ======================
+      # 4. Run script
+      # ======================
+      - name: Run NSE script
+        env:
+          GOOGLE_SHEETS_CREDENTIALS: ${{ secrets.GOOGLE_SHEETS_CREDENTIALS }}
+        run: python OI_Spurts_Contracts.py
+
+      # ======================
+      # 5. Commit only if CSV changed
+      # ======================
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          # Add CSV files only
+          git add *.csv || true
+
+          # If nothing to commit → exit safely
+          if git diff --cached --quiet; then
+            echo "No changes detected in CSV files"
+            exit 0
+          fi
+
+          # Commit and push
+          git commit -m "Update CSV data (auto)"
+          git push
