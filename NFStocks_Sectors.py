@@ -4,106 +4,134 @@ import pandas as pd
 import io
 import os
 import json
-from datetime import date, timedelta
-from dateutil.relativedelta import relativedelta
 import gspread
 from google.oauth2.service_account import Credentials
 
-# Get credentials and Sheet ID
-credentials_json = os.getenv('GOOGLE_SHEETS_CREDENTIALS')
+# ==========================
+# CONFIGURATION
+# ==========================
 SHEET_ID = "1IUChF0UFKMqVLxTI69lXBi-g48f-oTYqI1K9miipKgY"
+WORKSHEET_NAME = "StocksSectors"
+
+CSV_URL = "https://nsearchives.nseindia.com/content/indices/ind_niftytotalmarket_list.csv"
+
+# ==========================
+# GOOGLE SHEETS AUTH
+# ==========================
+credentials_json = os.getenv("GOOGLE_SHEETS_CREDENTIALS")
 
 if not credentials_json:
     raise ValueError("GOOGLE_SHEETS_CREDENTIALS environment variable is not set.")
 
 credentials_info = json.loads(credentials_json)
+
 credentials = Credentials.from_service_account_info(
     credentials_info,
-    scopes=["https://www.googleapis.com/auth/spreadsheets"]
+    scopes=[
+        "https://www.googleapis.com/auth/spreadsheets"
+    ]
 )
+
 client = gspread.authorize(credentials)
 
-# Headers to mimic browser
+# ==========================
+# REQUEST HEADERS
+# ==========================
 HEADERS = {
-    "User-Agent": "Mozilla/5.0",
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/120.0.0.0 Safari/537.36"
+    ),
     "Referer": "https://www.nseindia.com/",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) "
-    "Chrome/120.0.0.0 Safari/537.36"
+    "Accept": "text/csv,*/*"
 }
 
-# Function to download and parse CSV
-async def fetch_data(session, date_obj):
-    if date_obj.weekday() >= 5:  # Skip weekends
-        return None
-
-    date_str = date_obj.strftime("%d%m%Y")
-    url = f'https://nsearchives.nseindia.com/content/indices/ind_niftytotalmarket_list.csv'
-
-    try:
-        async with session.get(url, headers=HEADERS, timeout=10) as response:
-            if response.status == 200:
-                content = await response.read()
-                df = pd.read_csv(io.StringIO(content.decode('utf-8')), skiprows=1)
-                df['Date'] = date_obj.strftime("%d-%m-%Y")
-                print(f"✅ Done for {date_obj.strftime('%d-%m-%Y')}")
-                return df
-            else:
-                print(f"❌ Error {response.status} fetching {date_obj.strftime('%d-%m-%Y')}")
-                return None
-    except Exception as e:
-        print(f"❌ Error fetching {date_obj.strftime('%d-%m-%Y')}: {e}")
-        return None
-
-async def main():
-    end_date = date.today()
-    start_date = end_date - relativedelta(months=6)
-    delta = timedelta(days=1)
-
-    tasks = []
+# ==========================
+# DOWNLOAD CSV
+# ==========================
+async def fetch_data():
     async with aiohttp.ClientSession() as session:
-        current = start_date
-        while current <= end_date:
-            tasks.append(fetch_data(session, current))
-            current += delta
+        async with session.get(
+            CSV_URL,
+            headers=HEADERS,
+            timeout=aiohttp.ClientTimeout(total=30)
+        ) as response:
 
-        results = await asyncio.gather(*tasks)
+            response.raise_for_status()
 
-    # Filter non-empty dataframes
-    valid_data = [df for df in results if df is not None]
+            content = await response.read()
 
-    if not valid_data:
-        print("❌ No data fetched for any date.")
-        return
+            df = pd.read_csv(
+                io.StringIO(content.decode("utf-8"))
+            )
 
-    df_all = pd.concat(valid_data, ignore_index=True)
+            print(f"✅ Downloaded {len(df)} rows")
 
-    upload_to_google_sheets(df_all)
-    save_to_csv(df_all)
-    print("✅ Data processing completed.")
+            return df
 
+# ==========================
+# GOOGLE SHEETS UPLOAD
+# ==========================
 def upload_to_google_sheets(df):
     try:
-        sheet = client.open_by_key(SHEET_ID)
+        spreadsheet = client.open_by_key(SHEET_ID)
+
         try:
-            worksheet = sheet.worksheet("StocksSectors")
+            worksheet = spreadsheet.worksheet(WORKSHEET_NAME)
+            print(f"✅ Found worksheet: {WORKSHEET_NAME}")
         except gspread.exceptions.WorksheetNotFound:
-            worksheet = sheet.add_worksheet("StocksSectors", rows=str(len(df)+1), cols=str(len(df.columns)))
+            worksheet = spreadsheet.add_worksheet(
+                title=WORKSHEET_NAME,
+                rows=str(max(len(df) + 100, 1000)),
+                cols=str(max(len(df.columns) + 5, 20))
+            )
+            print(f"✅ Created worksheet: {WORKSHEET_NAME}")
 
         worksheet.clear()
-        df_cleaned = df.replace([float('inf'), float('-inf')], None).fillna('')
-        worksheet.update([df_cleaned.columns.values.tolist()] + df_cleaned.values.tolist(), value_input_option='RAW')
-        print("✅ Uploaded to Google Sheets.")
+
+        df = df.replace([float("inf"), float("-inf")], "")
+        df = df.fillna("")
+
+        data = [df.columns.tolist()] + df.values.tolist()
+
+        worksheet.update(
+            range_name="A1",
+            values=data,
+            value_input_option="RAW"
+        )
+
+        print("✅ Uploaded to Google Sheets")
+
     except Exception as e:
         print(f"❌ Google Sheets upload error: {e}")
 
+# ==========================
+# SAVE CSV
+# ==========================
 def save_to_csv(df):
     try:
-        df.to_csv('StocksSectors.csv', index=False)
-        print("✅ Saved to StocksSectors.csv")
+        filename = "StocksSectors.csv"
+        df.to_csv(filename, index=False)
+        print(f"✅ Saved {filename}")
     except Exception as e:
         print(f"❌ CSV save error: {e}")
+
+# ==========================
+# MAIN
+# ==========================
+async def main():
+    try:
+        df = await fetch_data()
+
+        upload_to_google_sheets(df)
+
+        save_to_csv(df)
+
+        print("✅ Process completed successfully")
+
+    except Exception as e:
+        print(f"❌ Process failed: {e}")
 
 if __name__ == "__main__":
     asyncio.run(main())
