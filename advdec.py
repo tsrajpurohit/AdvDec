@@ -1,4 +1,4 @@
-import os
+this is my script     "import os
 import json
 import logging
 import time
@@ -119,22 +119,19 @@ def save_data_to_google_sheets_and_csv():
         save_data_to_csv(most_active_df, "Most_Active")
 
     # Fetch data
-    # Fetch data
     data = nse_get_advances_declines("index")
 
-    logging.info(f"Adv/Dec response: {data}")
-    
-    if not data:
-        logging.warning("No Adv/Dec data received")
-        return
-    
+    # Remove 'meta' portion if it exists
+    if isinstance(data, dict) and "meta" in data:
+        del data["meta"]
+
+    # Convert data to DataFrame
     if isinstance(data, dict):
-        df = pd.json_normalize(data)
-    elif isinstance(data, list):
+        data = data.get("data", [])
+    if data and isinstance(data[0], dict):
         df = pd.DataFrame(data)
     else:
-        logging.warning(f"Unsupported type: {type(data)}")
-        return
+        raise ValueError("Data is not in a suitable format for DataFrame conversion")
 
     # Clean invalid values
     df = df.applymap(lambda x: "" if isinstance(x, (dict, list)) or pd.isnull(x) else x)
@@ -148,4 +145,4 @@ def save_data_to_google_sheets_and_csv():
     upload_to_google_sheets(SHEET_ID, "Adv_Dec", df)
 
 if __name__ == "__main__":
-    save_data_to_google_sheets_and_csv()
+    save_data_to_google_sheets_and_csv()"
