@@ -45,6 +45,7 @@ Alembic Pharmaceuticals Ltd.,Healthcare,APLLTD,EQ,INE901L01018
 Alivus Life Sciences Ltd.,Healthcare,ALIVUS,EQ,INE03Q201024
 Alkem Laboratories Ltd.,Healthcare,ALKEM,EQ,INE540L01014
 Alkyl Amines Chemicals Ltd.,Chemicals,ALKYLAMINE,EQ,INE150B01039
+Allcargo Global Ltd.,Services,AGL,BE,INE1YPB01014
 Allied Blenders and Distillers Ltd.,Fast Moving Consumer Goods,ABDL,EQ,INE552Z01027
 Alok Industries Ltd.,Textiles,ALOKINDS,EQ,INE270A01029
 Amara Raja Energy & Mobility Ltd.,Automobile and Auto Components,ARE&M,EQ,INE885A01032
@@ -201,7 +202,6 @@ Dixon Technologies (India) Ltd.,Consumer Durables,DIXON,EQ,INE935N01020
 Dr. Agarwal's Health Care Ltd.,Healthcare,AGARWALEYE,EQ,INE943P01029
 Dr. Lal Path Labs Ltd.,Healthcare,LALPATHLAB,EQ,INE600L01024
 Dr. Reddy's Laboratories Ltd.,Healthcare,DRREDDY,EQ,INE089A01031
-Dummy Allcargo Logistics Ltd.,Services,DUMMYALCAR,EQ,DUM418H01029
 Dynamatic Technologies Ltd.,Capital Goods,DYNAMATECH,EQ,INE221B01012
 E.I.D. Parry (India) Ltd.,Fast Moving Consumer Goods,EIDPARRY,EQ,INE126A01031
 EIH Ltd.,Consumer Services,EIHOTEL,EQ,INE230A01023
@@ -581,6 +581,7 @@ SKF India (Industrial) Ltd.,Capital Goods,SKFINDUS,EQ,INE2J8701016
 SKF India Ltd.,Automobile and Auto Components,SKFINDIA,EQ,INE640A01023
 SKY GOLD AND DIAMONDS Ltd.,Consumer Durables,SKYGOLD,EQ,INE01IU01018
 SML Mahindra Ltd.,Capital Goods,SMLMAH,EQ,INE294B01019
+SPR Auto Technologies Ltd.,Automobile and Auto Components,SHRIPISTON,EQ,INE526E01018
 SRF Ltd.,Chemicals,SRF,EQ,INE647A01010
 Saatvik Green Energy Ltd.,Capital Goods,SAATVIKGL,EQ,INE13B501022
 Safari Industries (India) Ltd.,Consumer Durables,SAFARI,EQ,INE429E01023
@@ -609,7 +610,6 @@ Shipping Corporation of India Ltd.,Services,SCI,EQ,INE109A01011
 Shree Cement Ltd.,Construction Materials,SHREECEM,EQ,INE070A01015
 Shree Renuka Sugars Ltd.,Fast Moving Consumer Goods,RENUKA,EQ,INE087H01022
 Shriram Finance Ltd.,Financial Services,SHRIRAMFIN,EQ,INE721A01047
-Shriram Pistons & Rings Ltd.,Automobile and Auto Components,SHRIPISTON,EQ,INE526E01018
 Shyam Metalics and Energy Ltd.,Capital Goods,SHYAMMETL,EQ,INE810G01011
 Siemens Energy India Ltd.,Capital Goods,ENRIN,EQ,INE1NPP01017
 Siemens Ltd.,Capital Goods,SIEMENS,EQ,INE003A01024
@@ -722,7 +722,7 @@ Varun Beverages Ltd.,Fast Moving Consumer Goods,VBL,EQ,INE200M01039
 Vedant Fashions Ltd.,Consumer Services,MANYAVAR,EQ,INE825V01034
 Vedanta Ltd.,Metals & Mining,VEDL,EQ,INE205A01025
 Vijaya Diagnostic Centre Ltd.,Healthcare,VIJAYA,EQ,INE043W01024
-Vikram Solar Ltd.,Capital Goods,VIKRAMSOLR,BE,INE078V01014
+Vikram Solar Ltd.,Capital Goods,VIKRAMSOLR,EQ,INE078V01014
 Vishal Mega Mart Ltd.,Consumer Services,VMM,EQ,INE01EA01019
 Viyash Scientific Ltd.,Healthcare,VIYASH,EQ,INE807F01027
 Vodafone Idea Ltd.,Telecommunication,IDEA,EQ,INE669E01016
