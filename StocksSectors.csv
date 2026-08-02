@@ -68,7 +68,7 @@ Ashapura Minechem Ltd.,Metals & Mining,ASHAPURMIN,EQ,INE348A01023
 Ashok Leyland Ltd.,Capital Goods,ASHOKLEY,EQ,INE208A01029
 Ashoka Buildcon Ltd.,Construction,ASHOKA,EQ,INE442H01029
 Asian Paints Ltd.,Consumer Durables,ASIANPAINT,EQ,INE021A01026
-Aster DM Healthcare Ltd.,Healthcare,ASTERDM,EQ,INE914M01019
+Aster DM Quality Care Ltd.,Healthcare,ASTERDM,EQ,INE914M01019
 Astra Microwave Products Ltd.,Capital Goods,ASTRAMICRO,EQ,INE386C01029
 Astral Ltd.,Capital Goods,ASTRAL,EQ,INE006I01046
 Ather Energy Ltd.,Automobile and Auto Components,ATHERENERG,EQ,INE0LEZ01016
@@ -201,6 +201,7 @@ Dixon Technologies (India) Ltd.,Consumer Durables,DIXON,EQ,INE935N01020
 Dr. Agarwal's Health Care Ltd.,Healthcare,AGARWALEYE,EQ,INE943P01029
 Dr. Lal Path Labs Ltd.,Healthcare,LALPATHLAB,EQ,INE600L01024
 Dr. Reddy's Laboratories Ltd.,Healthcare,DRREDDY,EQ,INE089A01031
+Dummy Inox Green Ltd.,Construction,DUMMYINXGN,EQ,DUM510W01014
 Dummy Triveni Ltd.,Capital Goods,DUMMYTRVN,EQ,DUM256C01024
 Dynamatic Technologies Ltd.,Capital Goods,DYNAMATECH,EQ,INE221B01012
 E.I.D. Parry (India) Ltd.,Fast Moving Consumer Goods,EIDPARRY,EQ,INE126A01031
@@ -345,7 +346,7 @@ Indus Towers Ltd.,Telecommunication,INDUSTOWER,EQ,INE121J01017
 IndusInd Bank Ltd.,Financial Services,INDUSINDBK,EQ,INE095A01012
 Info Edge (India) Ltd.,Consumer Services,NAUKRI,EQ,INE663F01032
 Infosys Ltd.,Information Technology,INFY,EQ,INE009A01021
-Inox Green Energy Services Ltd.,Services,INOXGREEN,EQ,INE510W01014
+Inox Green Energy Services Ltd.,Services,INOXGREEN,BE,INE510W01014
 Inox Wind Ltd.,Capital Goods,INOXWIND,EQ,INE066P01011
 Intellect Design Arena Ltd.,Information Technology,INTELLECT,EQ,INE306R01017
 InterGlobe Aviation Ltd.,Services,INDIGO,EQ,INE646L01027
